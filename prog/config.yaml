@@ -1,0 +1,330 @@
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║              PUZZLE DES 5 COULEURS — Fichier de configuration           ║
+# ║              Toute modification ici ne nécessite pas de toucher         ║
+# ║              au code source du programme.                               ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  MÉTA
+# ─────────────────────────────────────────────────────────────────────────────
+meta:
+  config_version : 1
+  app_name       : "Puzzle des Couleurs"
+  author         : ""
+  description    : "Configuration principale — modifiable sans toucher au code"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  RÈGLE DU JEU  (dimensionnement logique)
+# ─────────────────────────────────────────────────────────────────────────────
+game:
+  nb_columns        : 5        # nombre de colonnes du plateau
+  nb_rows           : 7        # hauteur maximale d'une colonne (cases totales)
+  nb_rows_initial   : 5        # cases occupées en position initiale / finale
+  nb_colors         : 5        # nombre de couleurs différentes
+  nb_pieces_per_color: 5       # nombre de pions par couleur
+  # nb_rows_initial doit être <= nb_rows
+  # nb_colors * nb_pieces_per_color doit être == nb_columns * nb_rows_initial
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  COULEURS DES PIONS
+#  Chaque entrée : identifiant court (clé), puis label, hex fill, hex outline
+# ─────────────────────────────────────────────────────────────────────────────
+pieces:
+  colors:
+    R:
+      label   : "Rouge"
+      fill    : "#E63946"      # rouge vif
+      outline : "#9B1B24"
+      text    : "#FFFFFF"      # couleur de l'étiquette sur le pion
+
+    J:
+      label   : "Jaune"
+      fill    : "#F4C430"      # jaune safran
+      outline : "#A07800"
+      text    : "#333333"
+
+    B:
+      label   : "Bleu"
+      fill    : "#4895EF"      # bleu clair
+      outline : "#1B4F9B"
+      text    : "#FFFFFF"
+
+    V:
+      label   : "Vert"
+      fill    : "#52B788"      # vert menthe
+      outline : "#1E6E45"
+      text    : "#FFFFFF"
+
+    O:
+      label   : "Orange"
+      fill    : "#FB8500"      # orange vif
+      outline : "#A05000"
+      text    : "#FFFFFF"
+
+  # rayon du pion en pixels (doit être < cell_size/2)
+  radius          : 28
+  # épaisseur du contour
+  outline_width   : 2
+  # afficher la lettre au centre du pion
+  show_label      : true
+  label_font      : "Helvetica"
+  label_font_size : 14
+  label_font_bold : true
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  GRILLE — CELLULES
+# ─────────────────────────────────────────────────────────────────────────────
+grid:
+  cell_size       : 68         # taille d'une cellule carrée (px)
+  cell_padding    : 4          # espace intérieur entre cellule et pion
+  cell_border     : 1          # épaisseur bordure de cellule (px)
+  cell_border_color: "#3A3A3A"
+
+  # Fond des cellules cibles (couleurs finales)
+  # Le fond est légèrement désaturé pour ne pas rivaliser avec les pions
+  target_alpha    : 0.35       # opacité de la teinte cible (0=blanc, 1=couleur pleine)
+  empty_cell_color: "#1E1E2E"  # couleur des cases vides (hors zone cible)
+  grid_bg         : "#12121F"  # fond général de la grille
+
+  # Surbrillance de la colonne sélectionnée
+  highlight_color : "#FFD700"
+  highlight_width : 3
+
+  # Surbrillance de la colonne de destination valide
+  valid_color     : "#52B788"
+  invalid_color   : "#E63946"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  CELLULES SPÉCIALES  (hors grille, à gauche ou au-dessus)
+# ─────────────────────────────────────────────────────────────────────────────
+special_cells:
+  size            : 52         # taille de chaque cellule spéciale (px)
+  margin          : 10         # marge entre cellule spéciale et grille
+  font            : "Helvetica"
+  font_size       : 11
+  font_bold       : true
+
+  escape:
+    label         : "✕ Esc"
+    tooltip       : "Annuler la sélection en cours"
+    bg            : "#2D1B00"
+    fg            : "#FB8500"
+    bg_hover      : "#4A2E00"
+
+  bloc:
+    label         : "⣿ Bloc"
+    tooltip       : "Déplacer le couple (2 pions liés)"
+    bg            : "#001B2D"
+    fg            : "#4895EF"
+    bg_hover      : "#002E4A"
+
+  undo:
+    label         : "↩ Undo"
+    tooltip       : "Annuler le dernier coup"
+    bg            : "#1B001B"
+    fg            : "#C084FC"
+    bg_hover      : "#2E002E"
+
+  redo:
+    label         : "↪ Redo"
+    tooltip       : "Rejouer le coup annulé"
+    bg            : "#1B001B"
+    fg            : "#C084FC"
+    bg_hover      : "#2E002E"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  ANIMATION
+# ─────────────────────────────────────────────────────────────────────────────
+animation:
+  enabled         : true
+  duration_ms     : 320        # durée totale d'un déplacement (ms)
+  fps             : 60         # images par seconde (calcule FRAME_MS = 1000/fps)
+  easing          : "ease_in_out"  # linear | ease_in | ease_out | ease_in_out
+
+  guide_line:
+    enabled       : true
+    color         : "#FFFFFF"
+    width         : 2
+    dash          : [6, 4]     # motif tirets [trait, espace] ; [] = ligne pleine
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  FENÊTRE PRINCIPALE
+# ─────────────────────────────────────────────────────────────────────────────
+window:
+  title           : "Puzzle des Couleurs"
+  resizable       : true
+  min_width       : 640
+  min_height      : 520
+  bg              : "#0D0D1A"  # fond général de la fenêtre
+
+  # Police générale de l'interface
+  ui_font         : "Helvetica"
+  ui_font_size    : 12
+
+  # Titre en haut de fenêtre (label interne)
+  title_font      : "Helvetica"
+  title_font_size : 20
+  title_font_bold : true
+  title_color     : "#E2C97E"  # or pâle
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  PANNEAU LATÉRAL — HISTORIQUE  (style ruban machine à calculer)
+# ─────────────────────────────────────────────────────────────────────────────
+side_panel:
+  width           : 160        # largeur du panneau en pixels
+  bg              : "#0A0A14"
+  border_color    : "#2A2A40"
+  border_width    : 1
+
+  # Compteur de coups
+  counter:
+    label         : "COUPS"
+    font          : "Courier"
+    font_size     : 28
+    font_bold     : true
+    color         : "#E2C97E"
+    label_color   : "#555577"
+    label_size    : 9
+
+  # Ruban historique (style ticket de caisse / machine à calculer)
+  tape:
+    font          : "Courier"
+    font_size     : 11
+    line_height   : 18         # hauteur d'une ligne en px
+    bg            : "#F5F0E8"  # beige papier
+    fg            : "#1A1A1A"  # encre noire
+    fg_undo       : "#888888"  # coups annulés (grisés)
+    fg_bloc       : "#0055AA"  # coups bloc (bleu machine)
+    fg_current    : "#CC2200"  # dernier coup (rouge machine)
+    scrollbar     : true
+    show_move_num : true       # afficher le numéro du coup
+    # Format d'affichage d'une ligne, ex: "  3. C2→C4 [B]"
+    format        : "{num:>3}. C{src}→C{dst} {tag}"
+    tag_simple    : ""
+    tag_bloc      : "[B]"
+    separator_char: "─"        # ligne de séparation entre coups normaux/annulés
+
+  # Boutons du panneau
+  buttons:
+    height        : 32
+    font          : "Helvetica"
+    font_size     : 11
+    radius        : 6          # arrondi des coins (px)
+    raz:
+      label       : "↺  RAZ"
+      bg          : "#1A0000"
+      fg          : "#FF6B6B"
+      bg_hover    : "#330000"
+    save:
+      label       : "💾  Enregistrer"
+      bg          : "#001A0D"
+      fg          : "#52B788"
+      bg_hover    : "#003318"
+    load:
+      label       : "📂  Charger"
+      bg          : "#001020"
+      fg          : "#4895EF"
+      bg_hover    : "#002040"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  BARRE DE COMMANDES
+# ─────────────────────────────────────────────────────────────────────────────
+command_bar:
+  height          : 34
+  bg              : "#0A0A14"
+  fg              : "#C0C0D8"
+  font            : "Courier"
+  font_size       : 12
+  prompt          : "› "
+  prompt_color    : "#E2C97E"
+  cursor_color    : "#E2C97E"
+  border_top      : "#2A2A40"
+  # Message d'aide affiché en filigrane quand vide
+  placeholder     : "deplace C1 C2  |  bloc C1 C2  |  efface  |  rejoue  |  raz  |  lire <fichier>  |  enregistre <fichier>"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  DIALOGUE DE VICTOIRE
+# ─────────────────────────────────────────────────────────────────────────────
+win_dialog:
+  title           : "🏆  Félicitations !"
+  bg              : "#0D0D1A"
+  border_color    : "#E2C97E"
+  border_width    : 2
+  title_color     : "#E2C97E"
+  title_font_size : 22
+  score_color     : "#52B788"
+  score_font_size : 40
+  text_color      : "#C0C0D8"
+  button_label    : "Rejouer"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  CHEMINS & DOSSIERS
+# ─────────────────────────────────────────────────────────────────────────────
+paths:
+  # Dossier des parties sauvegardées (relatif à l'exécutable ou absolu)
+  saves_dir       : "./parties"
+  # Dossier des configurations d'initialisation prédéfinies
+  init_dir        : "./initialisations"
+  # Extension par défaut pour les fichiers de partie
+  save_extension  : ".partie.yaml"
+  # Extension pour les configurations d'initialisation
+  init_extension  : ".init.yaml"
+  # Dossier des logs
+  log_dir         : "./logs"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  LANGUE / LOCALISATION
+# ─────────────────────────────────────────────────────────────────────────────
+locale:
+  language        : "fr"       # fr | en
+  # Les chaînes ci-dessous surchargent les traductions embarquées
+  strings:
+    move_simple   : "Déplacement"
+    move_bloc     : "Déplacement bloc"
+    undo_label    : "Annuler"
+    redo_label    : "Rejouer"
+    raz_label     : "Recommencer"
+    save_label    : "Enregistrer"
+    load_label    : "Charger"
+    win_title     : "Félicitations !"
+    win_msg       : "Résolu en {n} coups !"
+    error_invalid : "Déplacement impossible."
+    error_full    : "Colonne pleine."
+    error_empty   : "Colonne source vide."
+    error_bloc    : "Conditions du bloc non remplies."
+    cmd_unknown   : "Commande inconnue : {cmd}"
+    cmd_prompt    : "Commande"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  DEBUG & LOGS
+# ─────────────────────────────────────────────────────────────────────────────
+debug:
+  enabled         : false      # active le mode debug global
+  show_coords     : false      # affiche les coordonnées pixel au survol
+  show_fps        : false      # affiche le FPS de l'animation
+  show_state      : false      # affiche l'état des colonnes dans la console
+  highlight_valid : true       # surligne les coups valides au survol
+
+logging:
+  enabled         : true
+  level           : "INFO"     # DEBUG | INFO | WARNING | ERROR
+  log_to_file     : true
+  log_to_console  : false
+  max_file_size_kb: 512        # rotation au-delà de cette taille
+  max_backup_files: 3
+  # nom du fichier log (dans log_dir)
+  filename        : "puzzle.log"
+  # format des entrées de log
+  format          : "{time} [{level}] {module}: {message}"

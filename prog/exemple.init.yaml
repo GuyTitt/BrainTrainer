@@ -1,0 +1,46 @@
+# ═══════════════════════════════════════════════════════════════════
+#  Puzzle des Couleurs — Configuration initiale : Exemple classique
+#  Format : liste de colonnes, chaque colonne listée de bas en haut.
+#  Couleurs : R=Rouge  J=Jaune  B=Bleu  V=Vert  O=Orange
+# ═══════════════════════════════════════════════════════════════════
+
+meta:
+  name        : "Exemple classique"
+  description : "Grille cyclique 5×5 — configuration symétrique"
+  difficulty  : "standard"
+
+#  Visualisation de l'état initial (haut → bas) :
+#
+#   col :   1    2    3    4    5
+#          ┌────────────────────┐
+#   top →  │ R    J    B    V    O │
+#          │ J    B    V    O    R │
+#          │ B    V    O    R    J │
+#          │ V    O    R    J    B │
+#  bot →   │ O    R    J    B    V │
+#          └────────────────────┘
+
+initial:
+  - [O, V, B, J, R]   # col 1 (bas → haut)
+  - [R, O, V, B, J]   # col 2
+  - [J, R, O, V, B]   # col 3
+  - [B, J, R, O, V]   # col 4
+  - [V, B, J, R, O]   # col 5
+
+#  État final : une couleur par colonne
+#
+#   col :   1    2    3    4    5
+#          ┌────────────────────┐
+#          │ O    R    J    B    V │
+#          │ O    R    J    B    V │
+#          │ O    R    J    B    V │
+#          │ O    R    J    B    V │
+#          │ O    R    J    B    V │
+#          └────────────────────┘
+
+final:
+  - [O, O, O, O, O]   # col 1 : toutes Orange
+  - [R, R, R, R, R]   # col 2 : toutes Rouge
+  - [J, J, J, J, J]   # col 3 : toutes Jaune
+  - [B, B, B, B, B]   # col 4 : toutes Bleu
+  - [V, V, V, V, V]   # col 5 : toutes Vert
